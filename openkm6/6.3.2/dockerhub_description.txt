@@ -1,4 +1,4 @@
-# OpenKM Community
+## OpenKM Community
 
 Using the DMS/KM OpenKM open source community edition and tomcat bundled from the official OpenKM website on top of the ubuntu base image and java-jre. Best for using with a MySQL Server image as database backend and a NGINX Image as a reverse proxy. By default OpenKM uses a local database inside the container.
 
@@ -8,15 +8,15 @@ Whats included in this:
  - Tomcat 7.0.xx (part of the bundle)
  - packages: unzip, default-jre, wget
 
-## Tags
+# Tags
 
 ```latest```, ```6.3.2``` OpenKM 6.3.2 Community with tomcat 7 (total 909.6MB)
 	
-## Container Structure
+# Container Structure
 
-Simple schema 
+##### Simple schema 
 
-```sh
+```
 Base Image -> Ubuntu
 |
  \--- Tomcat Server 7
@@ -26,22 +26,24 @@ Base Image -> Ubuntu
 
 ##### Key folders
 
-```sh
-Tomcat server -> /opt/openkm/tomcat/
-Tomcat webapps -> /opt/openkm/tomcat/webapps/
-OpenKM deployment -> /opt/openkm/tomcat/webapps/OpenKM/
-```
+Tomcat server -> ```/opt/openkm/tomcat/```
+Tomcat webapps -> ```/opt/openkm/tomcat/webapps/```
+OpenKM deployment -> ```/opt/openkm/tomcat/webapps/OpenKM/```
 
 
 ##### Key files
-```sh
-OpenKM.xml; OpenKM.cfg -> /opt/openkm/tomcat/*
-OpenKM.war -> /opt/openkm/tomcat/webapps/OpenKM.war
-web.xml -> /opt/openkm/tomcat/webapps/OpenKM/WEB-INF/web.xml
-server.xml; tomcat-users.cml; web.xml; log4j.properties; logging.properties; context.xml -> /opt/openkm/tomcat/conf/*
-```
 
-## Useful commands for managing this container	
+```OpenKM.xml```; ```OpenKM.cfg``` -> ```/opt/openkm/tomcat/```
+```OpenKM.war``` -> ```/opt/openkm/tomcat/webapps/OpenKM.war```
+```web.xml``` -> ```/opt/openkm/tomcat/webapps/OpenKM/WEB-INF/web.xml```
+```server.xml```; ```tomcat-users.cml```; ```web.xml```; ```log4j.properties```; ```logging.properties```; ```context.xml``` -> ```/opt/openkm/tomcat/conf/```
+
+##### Default credentials
+
+ - User: ```okmAdmin```
+ - Password: ```admin```
+
+# Useful commands for managing this container	
 
 #### Start a new OpenKM6 container
 
@@ -95,6 +97,8 @@ NOTE: stoping the PID 0 process with shutdown the container
 ```
 
 #### Check configuration
+
+NOTE: a misconfigured or crashing tomcat configuration will prevent container from starting.
 
 Always check the configuration after changing tomcat settings or configs
 
