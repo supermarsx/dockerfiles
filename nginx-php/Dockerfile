@@ -22,13 +22,15 @@ RUN apt-get autoremove -y && \
 
 RUN echo 'debconf debconf/frontend select Dialog' | debconf-set-selections
 
+RUN mkdir /run/php
+
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 COPY conf/fpm.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 COPY conf/php.ini /etc/php/7.4/fpm/conf.d/custom.ini
 
-COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisor.conf
+COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 VOLUME /var/www/html
 
@@ -36,8 +38,16 @@ WORKDIR /var/www/html
 
 COPY public_html/ /var/www/html/
 
-EXPOSE 80
+RUN chown -R nobody:nogroup /var/www/html && \
+	chown -R nobody:nogroup /run && \
+	chown -R nobody:nogroup /var/cache && \
+	chown -R nobody:nogroup /var/log/nginx
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+USER nobody
+
+EXPOSE 8080
+
+CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
 HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/fpm-ping
