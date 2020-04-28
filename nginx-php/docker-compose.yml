@@ -2,10 +2,16 @@ version: '3'
 services:
   app:
     image: 'eduardomota/nginx-php'
+    container_name: nginx-php
     restart: always
     ports:
-      - '80:80'
+      - 8080:8080
     volumes:
-      - ./public_html:/var/www/public_html
+      - ./public_html:/var/www/html
     networks:
       - default
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
