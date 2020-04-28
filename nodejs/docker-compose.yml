@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: 'nodejs'
+    image: 'eduardomota/nodejs'
     container_name: nodejs
     restart: always
     ports:
