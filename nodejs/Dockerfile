@@ -2,12 +2,24 @@ FROM node
 
 WORKDIR app
 
-COPY package*.json ./
+COPY app/. .
 
-RUN npm install
+COPY app/package*.json ./
 
-COPY . .
+RUN apt-get update && \
+	apt-get install supervisor curl -y && \
+	npm install
 
+
+COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+RUN chown -R nobody:nogroup /app && \
+	chown -R nobody:nogroup /run
+
+USER nobody
+	
 EXPOSE 8080
 
-CMD ["node", "app/index.js"]
+CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/

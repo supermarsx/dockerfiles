@@ -1,11 +1,17 @@
 version: '3'
 services:
   app:
-    image: 'eduardomota/nodejs'
+    image: 'nodejs'
+    container_name: nodejs
     restart: always
     ports:
-      - '8080:8080'
+      - 8080:8080
     volumes:
       - ./app:/app
     networks:
       - default
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
