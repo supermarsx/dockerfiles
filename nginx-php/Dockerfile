@@ -34,15 +34,8 @@ WORKDIR /var/www/html
 
 COPY public_html/ /var/www/html/
 
-RUN chown -R nobody:nogroup /var/www/html && \
-	chown -R nobody:nogroup /run && \
-	chown -R nobody:nogroup /var/cache && \
-	chown -R nobody:nogroup /var/log/nginx
-
-USER nobody
-
-EXPOSE 8080
+EXPOSE 80
 
 CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
-HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/fpm-ping
