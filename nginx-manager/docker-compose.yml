@@ -15,15 +15,25 @@ services:
       - default
     depends_on:
       - db
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '5'
   db:
     image: jc21/mariadb-aria:10.4
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
-      MYSQL_DATABASE: 'npm'
-      MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'npm'
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
     volumes:
       - ./data/mysql:/var/lib/mysql
     networks:
       - default
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '5'
