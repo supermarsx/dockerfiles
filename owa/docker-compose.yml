@@ -17,7 +17,7 @@ services:
         max-size: '10m'
         max-file: '5'
   database:
-    image: mysql:latest
+    image: mysql:5.7
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
