@@ -1,6 +1,6 @@
-FROM eduardomota/nginx-php
+FROM eduardomota/nginx_php-fpm:7.4
 LABEL Maintainer="Eduardo Mota" \
-      Description="Open Web Analytics on Nginx with PHP"
+      Description="Open Web Analytics + Nginx + PHP-FPM 7.4"
 
 COPY ./entrypoint.sh /run/entrypoint.sh
 
